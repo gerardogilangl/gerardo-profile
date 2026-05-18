@@ -20,7 +20,7 @@ export const MY_EXPERIENCE = [
     company: "PT AT Indonesia",
     period: "Jan 2021 - Jan 2022",
     type: "Full Time",
-    tech: ["Vanilla PHP", "HTML", "CSS", "JQuery"],
+    tech: ["Vanilla PHP", "HTML", "CSS", "JQuery", "MySQL"],
     highlights: [
       "Created internal operational systems based on cross-division demand for Purchasing, Human Resources, General Affair, and Manufacturing.",
       "Developed an automated Goods Received Note (GRN) system specifically for the Purchasing pipeline.",
@@ -33,7 +33,7 @@ export const MY_EXPERIENCE = [
     company: "MobileCom",
     period: "Sep 2019 - Dec 2020",
     type: "Full Time",
-    tech: ["Python", "HTML", "SASS", "JS", "JQuery"],
+    tech: ["Laravel", "HTML", "CSS", "JS", "JQuery", "PostgreSQL"],
     highlights: [
       "Engineered a comprehensive HRIS Web Application from scratch to help Human Resources manage data.",
       "Architected the application backend to support multi-company structures with flexible settings for individual business rules.",
