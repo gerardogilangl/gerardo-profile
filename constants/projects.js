@@ -8,9 +8,9 @@ export const MY_PROJECTS = [
   },
   {
     id: 2,
-    title: "Cloud Deployment Dashboard",
-    description: "Automated AWS infrastructure using Terraform.",
-    tags: ["Cloud", "DevOps"],
+    title: "Web Dashboard",
+    description: "Website Dashboard using Golang.",
+    tags: ["Web", "Fullstack"],
     github: "https://github.com/yourusername/project2"
   }
 ];
