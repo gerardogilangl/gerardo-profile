@@ -7,7 +7,7 @@
     "icon": "./assets/images/icon.png",
     "scheme": "webprofile",
     "userInterfaceStyle": "automatic",
-    "baseUrl": "/gerardo-profile",
+    "baseUrl": "",
     "ios": {
       "icon": "./assets/expo.icon"
     },
@@ -28,7 +28,7 @@
       [
         "expo-router",
         {
-          "origin": "https://gerardogilangl.github.io/gerardo-profile/"
+          "origin": "https://gerardogilangl.vercel.app/"
         }
       ],
       [
