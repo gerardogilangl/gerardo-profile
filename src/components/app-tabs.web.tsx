@@ -24,12 +24,12 @@ export default function AppTabs() {
           <TabTrigger name="home" href="/" asChild>
             <TabButton>Home</TabButton>
           </TabTrigger>
-          {/* <TabTrigger name="explore" href="/explore" asChild>
-            <TabButton>Experience</TabButton>
-          </TabTrigger> */}
-          <TabTrigger name="experience" href="/experience" asChild>
+          <TabTrigger name="explore" href="/explore" asChild>
             <TabButton>Experience</TabButton>
           </TabTrigger>
+          {/* <TabTrigger name="experience" href="/experience" asChild>
+            <TabButton>Experience</TabButton>
+          </TabTrigger> */}
         </CustomTabList>
       </TabList>
     </Tabs>

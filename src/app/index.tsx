@@ -1,151 +1,181 @@
-import Entypo from '@expo/vector-icons/Entypo';
+import { Image } from 'expo-image';
+import { SymbolView } from 'expo-symbols';
 import React from 'react';
-import { FlatList, Image, Linking, ScrollView, Text, TouchableOpacity, View } from 'react-native';
-import Svg, { Path } from 'react-native-svg';
-import { MY_PROJECTS } from '../../constants/projects';
-import { styles } from './styles/style';
+import { Platform, Pressable, ScrollView, StyleSheet } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-export default function HomePage() {
+import { ExternalLink } from '@/components/external-link';
+import { ThemedText } from '@/components/themed-text';
+import { ThemedView } from '@/components/themed-view';
+import { Collapsible } from '@/components/ui/collapsible';
+import { WebBadge } from '@/components/web-badge';
+import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
+import { useTheme } from '@/hooks/use-theme';
 
-  const renderProjectCard = ({ item }: { item: any }) => (
-    <View style={styles.card}>
-      <Text style={styles.projectTitle}>{item.title}</Text>
-      <Text style={styles.projectDescription}>{item.description}</Text>
-      <View style={styles.tagContainer}>
-        {item.tags.map((tag: string, index: number) => (
-          <Text key={index} style={styles.tag}>{tag}</Text>
-        ))}
-      </View>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => Linking.openURL(item.github)}
-      >
-        <Text style={styles.buttonText}>On Work</Text>
-      </TouchableOpacity>
-    </View>
-  );
+export default function TabTwoScreen() {
+  const safeAreaInsets = useSafeAreaInsets();
+  const insets = {
+    ...safeAreaInsets,
+    bottom: safeAreaInsets.bottom + BottomTabInset + Spacing.three,
+  };
+  const theme = useTheme();
+
+  const contentPlatformStyle = Platform.select({
+    android: {
+      paddingTop: insets.top,
+      paddingLeft: insets.left,
+      paddingRight: insets.right,
+      paddingBottom: insets.bottom,
+    },
+    web: {
+      paddingTop: Spacing.six,
+      paddingBottom: Spacing.four,
+    },
+  });
 
   return (
-    <ScrollView style={styles.scrollView} contentContainerStyle={styles.container}>
-      {/* Profile Header */}
-      <View style={[styles.header, { position: "relative", marginTop: 72, marginBottom: 48, maxWidth: 800}]}>
-        {/* Circular Profile Image */}
-        <View style={styles.profileFrame}>
-          {/* The Photo inside the frame */}
-          <Image
-            source={require('../../assets/images/my-photo.jpeg')}
-            style={styles.profilePhoto}
-          />
-        </View>
-        <View style={[styles.body, {flex: 1}]}>
-          <Text style={[styles.headerTitle, {fontSize: 60}]}>Gerardo Gilang L</Text>
-          <Text style={styles.subtitle}>Software Engineer | Web • Mobile • Shopify • Cloud</Text>
-          <Text style={[styles.desc, {marginTop: 20}]}>
-            <View style={styles.skillTagContainer}><Text style={styles.skillTag}>ReactJs/NextJs</Text></View>
-            <View style={styles.skillTagContainer}><Text style={styles.skillTag}>Flutter</Text></View>
-            <View style={styles.skillTagContainer}><Text style={styles.skillTag}>React Native</Text></View>
-            <View style={styles.skillTagContainer}><Text style={styles.skillTag}>HTML</Text></View>
-            <View style={styles.skillTagContainer}><Text style={styles.skillTag}>CSS/SCSS</Text></View>
-            <View style={styles.skillTagContainer}><Text style={styles.skillTag}>JS</Text></View>
-            <View style={styles.skillTagContainer}><Text style={styles.skillTag}>JQuery</Text></View>
-            <View style={styles.skillTagContainer}><Text style={styles.skillTag}>PHP</Text></View>
-            <View style={styles.skillTagContainer}><Text style={styles.skillTag}>Laravel(PHP)</Text></View>
-            <View style={styles.skillTagContainer}><Text style={styles.skillTag}>Golang</Text></View>
-            <View style={styles.skillTagContainer}><Text style={styles.skillTag}>Python(Basic knowledge)</Text></View>
-            <View style={styles.skillTagContainer}><Text style={styles.skillTag}>Docker</Text></View>
-            <View style={styles.skillTagContainer}><Text style={styles.skillTag}>Git</Text></View>
-            <View style={styles.skillTagContainer}><Text style={styles.skillTag}>Shopify</Text></View>
-          </Text>
-        </View>
+    <ScrollView
+      style={[styles.scrollView, { backgroundColor: theme.background }]}
+      contentInset={insets}
+      contentContainerStyle={[styles.contentContainer, contentPlatformStyle]}>
+      <ThemedView style={styles.container}>
+        <ThemedView style={styles.titleContainer}>
+          <ThemedText type="subtitle">asd</ThemedText>
+          <ThemedText style={styles.centerText} themeColor="textSecondary">
+            This starter app includes example{'\n'}code to help you get started.
+          </ThemedText>
 
-        <Image
-          source={require('../../assets/images/header1.png')}
-          style={styles.headerImage1}
-        />
-      </View>
-      
-      <View style={[styles.sectionGreen, {position: "relative"}]}>
-        <View style={[styles.body, styles.section]}>
-          <Text style={styles.aboutusTitle}>About Me</Text>
-          <Text style={styles.aboutusContent}>Graduate Bachelor's degree Computer Science student at Bina Nusantara University, Currently working as software engineer for 5+ year experience. <br /><br />Have a solid foundation about ReactJs/NextJs, Flutter, React Native, HTML, CSS/SCSS, JS, JQuery, PHP,Laravel(PHP), Golang, Python (Basic knowledge), Docker, Git, Shopify.<br /><br />Proven have a strong will to learn newthing, reliable,responsible, on time with deadlines.</Text>
-        </View>
-        <View style={styles.shapeDividerContainer}>
-          <Svg
-            viewBox="0 0 1200 120"
-            preserveAspectRatio="none"
-            style={styles.shapeSvg}
-          >
-            {/* 💡 REPLACE THE 'd="..."' CONTENT BELOW WITH YOUR EXACT SVG PATH DATA */}
-            <Path
-              d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V0C26.9,4.75,55.05,10.3,81.18,14.83,156.76,27.87,233.91,32.6,321.39,56.44Z"
-              fill="#fff" // 👈 Matches your site background color to blend perfectly
-            />
-          </Svg>
-        </View>
-        <View style={styles.aboutMeImageContainer}>
-          <Image
-            source={require('../../assets/images/aboutme.png')}
-            style={styles.aboutMeImage}
-          />
-        </View>
-      </View>
+          <ExternalLink href="https://docs.expo.dev" asChild>
+            <Pressable style={({ pressed }) => pressed && styles.pressed}>
+              <ThemedView type="backgroundElement" style={styles.linkButton}>
+                <ThemedText type="link">Expo documentation</ThemedText>
+                <SymbolView
+                  tintColor={theme.text}
+                  name={{ ios: 'arrow.up.right.square', android: 'link', web: 'link' }}
+                  size={12}
+                />
+              </ThemedView>
+            </Pressable>
+          </ExternalLink>
+        </ThemedView>
 
-      <View style={[styles.body, styles.section, {position: "relative"}]}>
-        <Text style={styles.sectionTitle}>Contact</Text>
-        <View style={styles.socialMediaSection}>
-          <View style={styles.socialMediaItem}>
-            <Entypo name="phone" size={22} color="#0A7C6E" />
-            <Text style={styles.contactTitle}>Phone</Text>
-            <Text style={styles.link}>+6285767433334</Text>
-          </View>
-          <View style={styles.socialMediaItem}>
-            <Entypo name="mail" size={22} color="#0A7C6E" />
-            <Text style={styles.contactTitle}>E-Mail</Text>
-            <Text style={styles.link}>gerardo.lazuardi@gmail.com</Text>
-          </View>
-          <View style={styles.socialMediaItem}>
-            <Entypo name="linkedin" size={22} color="#0A7C6E" />
-            <Text style={styles.contactTitle}>Linked In</Text>
-            <Text
-              style={styles.link}
-              onPress={() => Linking.openURL('https://www.linkedin.com/in/gerardogilangl/')}
-            >https://www.linkedin.com/in/gerardogilangl/</Text>
-          </View>
-          <View style={styles.socialMediaItem}>
-            <Entypo name="instagram" size={22} color="#0A7C6E" />
-            <Text style={styles.contactTitle}>Instagram</Text>
-            <Text
-              style={styles.link}
-              onPress={() => Linking.openURL('https://www.instagram.com/gerardo_gilang?igsh=MTAyNnYyeHY2MnhwYg==')}
-            >https://www.instagram.com/gerardo_gilang?igsh=MTAyNnYyeHY2MnhwYg==</Text>
-          </View>
-        </View>
-        <Image
-          source={require('../../assets/images/contact.png')}
-          style={styles.contactImage}
-        />
-      </View>
+        <ThemedView style={styles.sectionsWrapper}>
+          <Collapsible title="File-based routing">
+            <ThemedText type="small">
+              This app has two screens: <ThemedText type="code">src/app/index.tsx</ThemedText> and{' '}
+              <ThemedText type="code">src/app/explore.tsx</ThemedText>
+            </ThemedText>
+            <ThemedText type="small">
+              The layout file in <ThemedText type="code">src/app/_layout.tsx</ThemedText> sets up
+              the tab navigator.
+            </ThemedText>
+            <ExternalLink href="https://docs.expo.dev/router/introduction">
+              <ThemedText type="linkPrimary">Learn more</ThemedText>
+            </ExternalLink>
+          </Collapsible>
 
-      {/* Portfolio Body */}
-      <View style={styles.body}>
-        <Text style={styles.sectionTitle}>Featured Projects</Text>
-        <FlatList
-          data={MY_PROJECTS}
-          renderItem={renderProjectCard}
-          keyExtractor={item => item.id.toString()}
-          scrollEnabled={false}
-        />
-        <Image
-          source={require('../../assets/images/projects.png')}
-          style={styles.projectsImage}
-        />
-      </View>
+          <Collapsible title="Android, iOS, and web support">
+            <ThemedView type="backgroundElement" style={styles.collapsibleContent}>
+              <ThemedText type="small">
+                You can open this project on Android, iOS, and the web. To open the web version,
+                press <ThemedText type="smallBold">w</ThemedText> in the terminal running this
+                project.
+              </ThemedText>
+              <Image
+                source={require('@/assets/images/tutorial-web.png')}
+                style={styles.imageTutorial}
+              />
+            </ThemedView>
+          </Collapsible>
 
-      <View style={styles.footerContainer}>
-        <Text style={styles.footerText}>
-          &copy; 2026 Gerardo Gilang Lazuardi. All rights reserved.
-        </Text>
-      </View>
+          <Collapsible title="Images">
+            <ThemedText type="small">
+              For static images, you can use the <ThemedText type="code">@2x</ThemedText> and{' '}
+              <ThemedText type="code">@3x</ThemedText> suffixes to provide files for different
+              screen densities.
+            </ThemedText>
+            <Image source={require('@/assets/images/react-logo.png')} style={styles.imageReact} />
+            <ExternalLink href="https://reactnative.dev/docs/images">
+              <ThemedText type="linkPrimary">Learn more</ThemedText>
+            </ExternalLink>
+          </Collapsible>
+
+          <Collapsible title="Light and dark mode components">
+            <ThemedText type="small">
+              This template has light and dark mode support. The{' '}
+              <ThemedText type="code">useColorScheme()</ThemedText> hook lets you inspect what the
+              user&apos;s current color scheme is, and so you can adjust UI colors accordingly.
+            </ThemedText>
+            <ExternalLink href="https://docs.expo.dev/develop/user-interface/color-themes/">
+              <ThemedText type="linkPrimary">Learn more</ThemedText>
+            </ExternalLink>
+          </Collapsible>
+
+          <Collapsible title="Animations">
+            <ThemedText type="small">
+              This template includes an example of an animated component. The{' '}
+              <ThemedText type="code">src/components/ui/collapsible.tsx</ThemedText> component uses
+              the powerful <ThemedText type="code">react-native-reanimated</ThemedText> library to
+              animate opening this hint.
+            </ThemedText>
+          </Collapsible>
+        </ThemedView>
+        {Platform.OS === 'web' && <WebBadge />}
+      </ThemedView>
     </ScrollView>
   );
 }
+
+const styles = StyleSheet.create({
+  scrollView: {
+    flex: 1,
+  },
+  contentContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  container: {
+    maxWidth: MaxContentWidth,
+    flexGrow: 1,
+  },
+  titleContainer: {
+    gap: Spacing.three,
+    alignItems: 'center',
+    paddingHorizontal: Spacing.four,
+    paddingVertical: Spacing.six,
+  },
+  centerText: {
+    textAlign: 'center',
+  },
+  pressed: {
+    opacity: 0.7,
+  },
+  linkButton: {
+    flexDirection: 'row',
+    paddingHorizontal: Spacing.four,
+    paddingVertical: Spacing.two,
+    borderRadius: Spacing.five,
+    justifyContent: 'center',
+    gap: Spacing.one,
+    alignItems: 'center',
+  },
+  sectionsWrapper: {
+    gap: Spacing.five,
+    paddingHorizontal: Spacing.four,
+    paddingTop: Spacing.three,
+  },
+  collapsibleContent: {
+    alignItems: 'center',
+  },
+  imageTutorial: {
+    width: '100%',
+    aspectRatio: 296 / 171,
+    borderRadius: Spacing.three,
+    marginTop: Spacing.two,
+  },
+  imageReact: {
+    width: 100,
+    height: 100,
+    alignSelf: 'center',
+  },
+});

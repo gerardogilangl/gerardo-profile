@@ -7,6 +7,7 @@
     "icon": "./assets/images/icon.png",
     "scheme": "webprofile",
     "userInterfaceStyle": "automatic",
+    "baseUrl": "/gerardo-profile",
     "ios": {
       "icon": "./assets/expo.icon"
     },
@@ -20,13 +21,16 @@
       "predictiveBackGestureEnabled": false
     },
     "web": {
-      "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/favicon.png",
-      "baseUrl": "/gerardo-profile"
+      "bundler": "metro"
     },
     "plugins": [
-      "expo-router",
+      [
+        "expo-router",
+        {
+          "origin": "https://gerardogilangl.github.io/gerardo-profile/"
+        }
+      ],
       [
         "expo-splash-screen",
         {
